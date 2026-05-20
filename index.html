@@ -147,6 +147,7 @@
   </style>
 </head>
 <body>
+  <audio id="musicAudio" src="song.mp3" loop></audio>
   <div class="container">
     <div class="card">
       <div class="topbar">
@@ -407,6 +408,9 @@ function renderAll() {
 function startTimer() {
   if (started) return;
   started = true;
+  if (activePuzzleName === "Music") {
+  document.getElementById("musicAudio").play();
+}
   if (timerInterval) clearInterval(timerInterval);
   timerInterval = setInterval(() => {
     timeLeft = Math.max(0, timeLeft - 1);
@@ -416,6 +420,8 @@ function startTimer() {
 }
 
 function resetPuzzle(name = activePuzzleName) {
+  document.getElementById("musicAudio").pause();
+  document.getElementById("musicAudio").currentTime = 0;
   activePuzzleName = name;
   started = false;
   resultSavedForRun = false;
